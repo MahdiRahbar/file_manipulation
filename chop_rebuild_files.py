@@ -2,7 +2,6 @@ import os
 
 
 
-def chop_file(file_path, output_path='', chop_size = 1500): 
 def chop_file(file_path, output_path='', chunk_size = 1500): 
     chunk_size = chunk_size * 10**6
     file_size = os.path.getsize(file_path)
@@ -13,12 +12,14 @@ def chop_file(file_path, output_path='', chunk_size = 1500):
     
     file_content = bytes(open(file_path, 'rb').read())
     for i in range(chunk_number): 
+        print(f"Splitting chunk {i}")
         if i != chunk_number-1: 
             with open(output_path + f"_part{i+1}", 'wb+') as f: 
                 f.write(file_content[chunk_size*i:chunk_size*(i+1)])
         else:
             with open(output_path + f"_part{i+1}", 'wb+') as f: 
                 f.write(file_content[chunk_size*i:])
+    print("Chopping the file is done successfuly!")
 
 
 
